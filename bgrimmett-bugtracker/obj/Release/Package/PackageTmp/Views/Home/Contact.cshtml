@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+
+<div class="text-center">
+    <h2>Get in Touch</h2>
+</div>
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-4">
+            Name:<br>
+            <div class="form-group">
+                <input type="text" name="name">
+                <br>
+            </div>
+            Email:<br>
+            <div class="form-group">
+                <input type="text" name="email">
+                <br />
+            </div>
+            Subject:<br>
+            <div class="form-group">
+                <input type="text" name="subject">
+                <br />
+            </div>
+            Body:<br>
+            <div class="form-group">
+                <input type="text" name="body">
+                <br />
+                <br /><button class="btn-danger">Submit</button>
+            </div>
+        </div>
+        
+        @*<div class="col-md-4">
+            <div class="img-responsive"><img src="~/Images/Contact.jpg" /></div>
+        </div>*@
+    </div>
+}
+
+
+@*<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="text-center" style="padding-top:75px;">
+                <a href="@Url.Action("Contact", "Home")">mistergrimmett1127@gmail.com</a>
+            </div>
+            <div class="text-center">
+                <a href="tel:7043146774"> (704)314-6774</a>
+            </div>
+        </div>*@
+
+        @*<div class="col-md-4 text-center">
+            <h2>Made possible by:</h2>
+            <p><img src="~/Images/CoderFoundry.jpg" /></p>
+        </div>*@
+
+        <!--<div class="col-md-4 text-center">
+            <p>
+                <ul>
+                    <li><a href="#"><i class="icon-twitter2"></i></a></li>
+                    <li><a href="https://www.facebook.com/mistergrimmett" target="_blank"><i class="icon-facebook2"></i></a></li>
+                    <li><a href="https://www.linkedin.com/in/brandon-grimmett/" target="_blank"><i class="icon-linkedin2"></i></a></li>
+                    <li><a href="https://www.instagram.com/mistergrimmett/" target="_blank"><i class="icon-instagram2"></i></a></li>
+                </ul>
+            </p>
+        </div>
+    </div>
+</div>-->
+

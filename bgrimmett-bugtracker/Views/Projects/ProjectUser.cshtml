@@ -1,0 +1,40 @@
+﻿
+@{
+    //ViewBag.Title = "ProjectUser";
+    Layout = "~/Views/Shared/_InternalLayout.cshtml";
+}
+
+
+
+@model bgrimmett_bugtracker.Models.Helpers.ProjectUserViewModels
+@*View model is tailored to the view specifically, we need projectId and project Id to display any properties, as well as multiselect and selectusers
+    usually you can pass 1 object type, in our view we need 1 type object and 1 type users*@
+@*@{
+        ViewBag.Title = "ProjectUser";
+    }*@
+<header class="page-header text-center">
+    <div class="container-fluid">
+        <h2 class="no-margin-bottom">Project Assignment</h2>
+    </div>
+</header>
+<div class="container-fluid text-center">
+    <div class="row bg-white has-shadow" style="margin-top:25px; margin-bottom:25px;">
+        <div class="col-lg-12" style="padding:10px;">
+            <h2>Assign Users To Projects</h2>
+            @using (Html.BeginForm("ProjectUser", "Projects", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken();
+                @Html.HiddenFor(model => model.AssignProjectId)
+
+                <h3>Project Name: @Model.AssignProject.Name</h3>
+                <div>
+                    @Html.ListBox("SelectedUsers", Model.Users)
+                </div>
+                <div style="padding-top:20px;">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

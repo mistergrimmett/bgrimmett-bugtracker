@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "~/Views/Shared/_InternalLayout.cshtml";
+}
+
+<div class="container">
+    <div class="text-center">
+        <h2 style="padding-top:50px;">Search Results</h2>
+        <p>Here's what your search turned up!</p>
+
+        <div class="container" style="padding-top:75px; padding-bottom:75px;">
+            <div class="row">
+                @foreach (var item in Model)
+            {
+                    <div class="col-md-6">
+                        <p>Ticket Title: @item.Title</p>
+                        <p>Body: @Html.Raw(item.Body.ToString())</p>
+                        <p>Date Created: @item.DateCreated</p>
+                        @if (item.AssignedToUser != null)
+                        {
+                            <p>Assigned To: @item.AssignedToUser.FirstName</p>
+                        }
+                        else
+                        {
+                            <p>Currently not assigned to user.</p>
+                        }
+
+                        <p>Creator: @item.AuthorUser.FirstName</p>
+                        <p>Project Name: @item.Project.Name</p>
+                        <p>Priority: @item.TicketPriority.Name</p>
+                        <p>Status: @item.TicketStatus.Name</p>
+                        <p>Type: @item.TicketType.Name</p>
+                    </div>
+                }
+                
+            </div>
+        </div>
+    </div>
+
+</div>

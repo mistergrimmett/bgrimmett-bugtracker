@@ -1,0 +1,182 @@
+﻿@using bgrimmett_bugtracker.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_InternalLayout.cshtml";
+
+    List<SelectListItem> guestUser = new List<SelectListItem>();
+    guestUser.Add(new SelectListItem
+    {
+        Text = "Admin",
+        Value = "email1@gmail.com"
+    });
+    guestUser.Add(new SelectListItem
+    {
+        Text = "Project Manager",
+        Value = "email2@gmail.com"
+    });
+    guestUser.Add(new SelectListItem
+    {
+        Text = "Developer",
+        Value = "sarahgreene96@gmail.com"
+    });
+    guestUser.Add(new SelectListItem
+    {
+        Text = "Submitter",
+        Value = "email3@gmail.com"
+    });
+}
+
+
+
+@*<head>
+        <!-- Bootstrap core CSS-->
+        <link href="/startbootstrap-sb-admin-gh-pages/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Custom fonts for this template-->
+        <link href="/startbootstrap-sb-admin-gh-pages/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <!-- Custom styles for this template-->
+        <link href="/startbootstrap-sb-admin-gh-pages/css/sb-admin.css" rel="stylesheet">
+    </head>*@
+<body class="bg-dark">
+    <div class="container">
+        @*<h2>Login</h2>*@
+        <div class="card card-login mx-auto mt-5">
+            <div class="card-header">Login</div>
+            <div class="card-body">
+                <section id="loginForm">
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                        @Html.AntiForgeryToken()
+                        <p style="font-weight:bold;">Enter email and password associated with your account here.</p>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
+                            <label for="exampleInputEmail1">Email address</label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Enter email" })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @*@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })*@
+                            <label for="exampleInputPassword1">Password</label>
+                            <div class="col-md-10">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox"> Remember Password
+                                </label>
+                            </div>
+                        </div>
+                        <input type="submit" value="Log in" class="btn btn-primary" />
+
+                        <div class="text-center">
+                            <a class="d-block small mt-3" href="@Url.Action("Register")">Register an Account</a>
+                            <a class="d-block small" href="@Url.Action("ForgotPassword")">Forgot Password?</a>
+                        </div>
+                        @*<div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <div class="checkbox">
+                                        @Html.CheckBoxFor(m => m.RememberMe)
+                                        @Html.LabelFor(m => m.RememberMe)
+                                    </div>
+                                </div>
+                            </div>*@
+                        @*<div class="form-group">*@
+                        @*<div class="col-md-offset-2 col-md-10">*@
+
+                        @*</div>*@
+                        @*</div>
+                            <p>
+                                <a href="" class="btn btn-primary">Register</a>
+                            </p>
+                             Enable this once you have account confirmation enabled for password reset functionality
+                                <p>
+                                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                                </p>*@
+                    }
+                </section>
+                <div class="text-center" style="padding-top:20px;">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                    @Html.AntiForgeryToken()
+                    
+                        @Html.DropDownListFor(m => m.Email, guestUser, "(Select a guest role)", htmlAttributes: new { Style = "width:210px" })
+
+                        @Html.HiddenFor(m => m.Password, new { @class = "form-control", Value = "Password1!" })
+
+                    
+                        <input type="submit" value="Guest Login" title="Sign in as a guest to demo the Bug Assasin!" class="btn btn-primary" />
+                    
+
+                }
+                </div>
+            </div>
+            @*<div class="col-md-4">
+                    <section id="socialLoginForm">
+                        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                    </section>
+                </div>*@
+
+
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/startbootstrap-sb-admin-gh-pages/vendor/jquery/jquery.min.js"></script>
+    <script src="/startbootstrap-sb-admin-gh-pages/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="/startbootstrap-sb-admin-gh-pages/vendor/jquery-easing/jquery.easing.min.js"></script>
+</body>
+@*section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+
+
+
+
+@*<body class="bg-dark">
+        <div class="container">
+            <div class="card card-login mx-auto mt-5">
+                <div class="card-header">Login</div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input class="form-control" id="exampleInputPassword1" type="password" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox"> Remember Password
+                                </label>
+                            </div>
+                        </div>
+                        <input type="submit" value="Log in" class="btn btn-primary" />
+                    </form>
+                    <div class="text-center">
+                        <a class="d-block small mt-3" href="register.html">Register an Account</a>
+                        <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    </body>*@

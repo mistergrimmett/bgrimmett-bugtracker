@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @*<ul class="nav navbar-nav navbar-right">*@
+        <div class="container">
+            <div class="row" style="font-weight:bold; color:white; text-decoration:none;">
+                <a href="@Url.Action("Index", "Manage")" class="btn btn-primary">@ViewBag.FirstName</a>
+                @*@Html.ActionLink("Hello, " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
+            </div>
+            <div class="row" style="font-weight:bold; padding-top:10px;">
+                <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-primary">Log off</a>
+            </div>
+        </div>
+            @*</ul>*@
+    }
+}
+else
+{
+    @*<ul class="nav navbar-nav navbar-left">*@
+    <div class="container text-center">
+        <div class="row">
+            <a href="@Url.Action("Register", "Account")" class="btn-sm btn-primary" style="text-decoration:none;">Register</a>
+        </div>
+        <div class="row" style="padding-top:10px;">
+            <a href="@Url.Action("Login", "Account")" class="btn-sm btn-primary" style="text-decoration:none;">Login</a>
+        </div>
+    </div>
+    @*</ul>*@
+}
+
+
+
+@*@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+    @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })*@

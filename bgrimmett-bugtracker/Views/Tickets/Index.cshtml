@@ -1,0 +1,221 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<bgrimmett_bugtracker.Models.CodeFirst.Ticket>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_InternalLayout.cshtml";
+}
+
+<div class="text-center">
+    <h2>Tickets</h2>
+</div>
+
+
+
+
+<!-- Example DataTables Card-->
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fa fa-table"></i> Ticket Index
+        @if (User.IsInRole("Admin") || (User.IsInRole("Project Manager") || (User.IsInRole("Developer") || (User.IsInRole("Submitter")))))
+        {
+            <p class="pull-right">
+                @Html.ActionLink("Create New", "Create")
+            </p>
+        }
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Assigned To</th>
+                        @*<th>Author</th>
+                            <th>Project Name</th>*@
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Type</th>
+                        <th>Title</th>
+                        @*<th>Body</th>*@
+                        @*<th>Date Created</th>*@
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Assigned To</th>
+                        @*<th>Author</th>
+                            <th>Project Name</th>*@
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Type</th>
+                        <th>Title</th>
+                        @*<th>Body</th>*@
+                        @*<th>Date Created</th>*@
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AssignedToUser.DisplayName)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.AuthorUser.FirstName)
+                                </td>
+                                <td>
+                                        @Html.DisplayFor(modelItem => item.Project.Name)
+                                    </td>*@
+                            <td>
+                                @if (item.TicketPriority.Name == "Urgent")
+                                {
+                                    <i class="fa fa fa-circle-o" style="color:red;"></i>
+                                }
+                                @if (item.TicketPriority.Name == "High")
+                                {
+                                    <i class="fa fa fa-circle-o" style="color:orange;"></i>
+                                }
+                                @if (item.TicketPriority.Name == "Medium")
+                                {
+                                    <i class="fa fa fa-circle-o" style="color:yellow;"></i>
+                                }
+                                @if (item.TicketPriority.Name == "Low")
+                                {
+                                    <i class="fa fa fa-circle-o" style="color:blue;"></i>
+                                }
+                                @Html.DisplayFor(modelItem => item.TicketPriority.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TicketStatus.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TicketType.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.Body)
+                                </td>*@
+                            @*<td>
+                                @Html.DisplayFor(modelItem => item.DateCreated)
+                            </td>*@
+                            @if (User.IsInRole("Admin") || (User.IsInRole("Submitter") || (User.IsInRole("Project Manager") || (User.IsInRole("Developer")))))
+                            {
+                                <td>
+                                    <a href="@Url.Action("Edit", new { id = item.Id })" class="btn-sm btn-primary" style="text-decoration:none;">Edit</a> |
+                                    <a href="@Url.Action("Details", new { id = item.Id })" class="btn-sm btn-success" style="text-decoration:none;">Details</a> |
+                                    <a href="@Url.Action("Delete", new { id = item.Id })" class="btn-sm btn-danger" style="text-decoration:none;">Delete</a>
+                                </td>
+                            }
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+            <div class="text-center">
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of
+                @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+            </div>
+        </div>
+    </div>
+    <div class="card-footer small text-muted">Updated on @DateTimeOffset.Now</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<table class="table">
+        <tr>
+            <th>
+                Assigned To
+            </th>
+            <th>
+                Author
+            </th>
+            <th>
+                Project Name
+            </th>
+            <th>
+                Priority
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Body
+            </th>
+            <th>
+                Created
+            </th>
+            <th>
+                Updated
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssignedToUser.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuthorUser.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Project.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketPriority.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketStatus.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketType.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Body)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateUpdated)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+    }
+
+    </table>*@
